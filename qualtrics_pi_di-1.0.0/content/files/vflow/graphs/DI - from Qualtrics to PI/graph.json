@@ -1,0 +1,100 @@
+{
+    "properties": {},
+    "description": "DI - from Qualtrics to PI",
+    "processes": {
+        "connecttoqualtricssurvey1": {
+            "component": "Connect to Qualtrics Survey",
+            "metadata": {
+                "label": "Connect to Qualtrics Survey",
+                "x": 12,
+                "y": 12,
+                "height": 80,
+                "width": 120,
+                "extensible": true,
+                "filesRequired": [
+                    "script.py"
+                ],
+                "generation": 1,
+                "config": {
+                    "qualtrics_connection": {
+                        "configurationType": "Configuration Manager",
+                        "connectionID": "QUALTRICS"
+                    },
+                    "surveyID": "SV_087Iahyy6XFqOK9",
+                    "StartDate": "2019-01-28T01:23"
+                }
+            }
+        },
+        "pushdatatoprocessintelligenceviaingestionapi1": {
+            "component": "Push data to PI via Ingestion API",
+            "metadata": {
+                "label": "Push data to Process Intelligence via Ingestion API",
+                "x": 181,
+                "y": 12,
+                "height": 80,
+                "width": 120,
+                "extensible": true,
+                "filesRequired": [
+                    "script.py"
+                ],
+                "generation": 1,
+                "config": {
+                    "tableName": "QualtricsSurvey",
+                    "token": "MGQwMTRiYzMtYTc4NC00YTFlLWIwMWItYWVhZWFhZDc1ZmNlOjhhNGVlYTAxLWU3NWYtNGEzNC1hY2M1LTE4NWFmNWNiMGY0NjpkMDUwNmUyZmY0YTI0MTExOTQ3ZWRjNDcwNzJjYTVmNTptZEQxOTloVk5YajNyV05MejFOdUhkRm9XdjdHaW9DVFJUMUFiY1FPalNvYjVyV1pqN00zWTRxaUU4T3hZS3JH"
+                },
+                "additionalinports": [
+                    {
+                        "name": "input1",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "graphterminator1": {
+            "component": "com.sap.util.graphTerminator",
+            "metadata": {
+                "label": "Graph Terminator",
+                "x": 350,
+                "y": 12,
+                "height": 80,
+                "width": 120,
+                "generation": 1,
+                "config": {}
+            }
+        }
+    },
+    "groups": [],
+    "connections": [
+        {
+            "metadata": {
+                "points": "136,52 176,52"
+            },
+            "src": {
+                "port": "outData",
+                "process": "connecttoqualtricssurvey1"
+            },
+            "tgt": {
+                "port": "input1",
+                "process": "pushdatatoprocessintelligenceviaingestionapi1"
+            }
+        },
+        {
+            "metadata": {
+                "points": "305,52 345,52"
+            },
+            "src": {
+                "port": "outData",
+                "process": "pushdatatoprocessintelligenceviaingestionapi1"
+            },
+            "tgt": {
+                "port": "stop",
+                "process": "graphterminator1"
+            }
+        }
+    ],
+    "inports": {},
+    "outports": {},
+    "metadata": {
+        "generation": 1
+    }
+}

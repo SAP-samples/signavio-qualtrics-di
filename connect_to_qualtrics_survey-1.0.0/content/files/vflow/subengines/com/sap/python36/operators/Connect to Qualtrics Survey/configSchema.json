@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$id": "http://sap.com/vflow/Connect to Qualtrics Survey.configSchema.json",
+    "type": "object",
+    "properties": {
+        "qualtrics_connection": {
+            "title": "Input Connection: Qualtrics ",
+            "description": "Input Connection: Qualtrics ",
+            "type": "object",
+            "properties": {
+                "connectionProperties": {
+                    "title": "Connection Properties",
+                    "description": "Connection Properties",
+                    "$ref": "http://sap.com/vflow/com.sap.dh.connections.openapi.schema.json",
+                    "sap_vflow_constraints": {
+                        "ui_visibility": [
+                            {
+                                "name": "configurationType",
+                                "value": "Manual"
+                            }
+                        ]
+                    }
+                },
+                "configurationType": {
+                    "title": "Configuration Type",
+                    "description": "Configuration Type",
+                    "type": "string",
+                    "enum": [
+                        "Configuration Manager",
+                        "Manual"
+                    ]
+                },
+                "connectionID": {
+                    "title": "Connection ID",
+                    "description": "Connection ID",
+                    "type": "string",
+                    "format": "com.sap.dh.connection.id",
+                    "sap_vflow_valuehelp": {
+                        "url": "/app/datahub-app-connection/connections?connectionTypes=OPENAPI",
+                        "valuepath": "id"
+                    }
+                }
+            }
+        },
+        "surveyID": {
+            "title": "Survey ID",
+            "type": "string"
+        },
+        "script": {
+            "readOnly": true,
+            "type": "string",
+            "sap_vflow_constraints": {
+                "ui_visibility": false,
+                "ui_disabled": true
+            }
+        },
+        "StartDate": {
+            "type": "string",
+            "format": "date-time"
+        }
+    }
+}

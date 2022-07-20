@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$id": "http://sap.com/vflow/Push data to PI via Ingestion API.configSchema.json",
+    "type": "object",
+    "properties": {
+        "tableName": {
+            "title": "Table Name",
+            "type": "string"
+        },
+        "token": {
+            "title": "Token",
+            "type": "string"
+        },
+        "script": {
+            "readOnly": true,
+            "type": "string",
+            "sap_vflow_constraints": {
+                "ui_visibility": false,
+                "ui_disabled": true
+            }
+        }
+    }
+}
