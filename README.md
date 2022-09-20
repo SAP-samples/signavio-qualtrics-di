@@ -18,7 +18,7 @@ In this GitHub repository you can find 3 folders, "qualtrics_pi_di-1.0.0", "conn
 Here are the steps how to use them in your own environment:
 
 0. In SAP Signavio Process Intelligence, create a new Ingestion API data source
-1. Download and archive the 3 folders in 3 zip files, so that they can be imported as solutions into your SAP Data Intelligence tenant. In order to import solutions in SAP Data Intelligence, you can go to System Management, go to Files, click on the '+' symbol, select "Import Solution" and choose your zip file.
+1. Download and archive the content of the 3 folders (note: do not archive the folders, but for each folder select the content and add to archive) in 3 zip files, so that they can be imported as solutions into your SAP Data Intelligence tenant. In order to import solutions in SAP Data Intelligence, you can go to System Management, go to Files, click on the '+' symbol, select "Import Solution" and choose your zip file.
 2. In SAP Data Intelligence, create an OPENAPI connection to Qualtrics
 	- Host: qualtrics.com
 	- Authentication Type: Basic
