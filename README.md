@@ -1,6 +1,6 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/signavio-qualtrics-di)](https://api.reuse.software/info/github.com/SAP-samples/signavio-qualtrics-di)
 
-# SAP Signavio Process Intelligence - Ingestion API
+# SAP Signavio Process Intelligence - xxx
 
 ## Description
 This repository contains SAP Data Intelligence solutions to enable the connection of Qualtrics Survey data to SAP Signavio Process Intelligence through an SAP Data Intelligence pipeline.
