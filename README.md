@@ -1,6 +1,6 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/signavio-qualtrics-di)](https://api.reuse.software/info/github.com/SAP-samples/signavio-qualtrics-di)
 
-# SAP Signavio Process Intelligence - SAP Data Intelligence data pipeline template with Qualtrics connection
+# SAP Signavio Process Intelligence - Ingestion API
 
 
 ## Description
