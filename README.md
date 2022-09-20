@@ -14,14 +14,28 @@ For more information, follow this blog post on SAP Community: [Integrating SAP S
 
 ## Download and Installation
 In this GitHub repository you can find 3 folders, "qualtrics_pi_di-1.0.0", "connect_to_qualtrics_survey-1.0.0" and "push_data_to_pi-1.0.0", containing respectively the DI graph, the DI Qualtrics connector and the DI SAP Signavio connector. You can download and archive them in zip files, so that they can be imported as solutions into your SAP Data Intelligence tenant.
-
-In order to import solutions in SAP Data Intelligence, you can go to System Management, go to Files, click on the '+' symbol, select "Import Solution" and choose your zip file.
-
-
-## Known Issues
-Python operators contain a few lines of codes that can be adjusted based on your use case. For more information, refer to the [aforementioned blog](https://blogs.sap.com/2022/07/20/integrating-sap-signavio-process-intelligence-and-sap-data-intelligence-cloud-a-concrete-example-with-the-new-ingestion-api).
+Here are the steps:
+0. In SAP Signavio Process Intelligence, create a new Ingestion API data source
+1. In order to import solutions in SAP Data Intelligence, you can go to System Management, go to Files, click on the '+' symbol, select "Import Solution" and choose your zip file.
+2. Create an OPENAPI connection to Qualtrics
+	- Host: qualtrics.com
+	- Authentication Type: Basic
+	- Username: the Qualtrics data center ID (can be found under your Qualtrics User, Account Settings, Qualtrics IDs)
+	- Password: the Qualtrics token (can be found under your Qualtrics User, Account Settings, Qualtrics IDs)
+3. Create an OPENAPI connection to SAP Signavio
+	- Host: spi-etl-ingestion.eu-prod-cloud-os-eu.suite-saas-prod.signav.io (note: the API endpoint url of Ingestion API will change soon)
+	- Authentication Type: Basic
+	- Username: it's not relevant, you can type "signavio"
+	- Password: the Ingestion API token (can be found in the Ingestion API data source created at step 0)
+4. Open SAP Data Intelligence Modeler and add the imported graph
+5. Configure the graph, save and execute
+	- In the Qualtrics operator, add (1) the connection, and (2) the Qualtrics Survey ID
+	- In the SAP Signavio operator, add (1) the connection, and (2) the name of the target table to be pushed in SAP Signavio Process Intelligence
+6. Test the result: access to Ingestion API Integration in SAP Signavio Process Intelligence and check in the logs if a new request to push data has been received.
 
 ## How to obtain support
+This sample is not part of the product. It is an open source artifact with no maintenance nor official support.
+
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
 
 ## License

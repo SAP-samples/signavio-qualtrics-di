@@ -1,0 +1,141 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$id": "http://sap.com/vflow/signavio_data_ingestion.configSchema.json",
+    "type": "object",
+    "properties": {
+        "codelanguage": {
+            "type": "string",
+            "sap_vflow_constraints": {
+                "ui_visibility": false
+            }
+        },
+        "script": {
+            "type": "string",
+            "sap_vflow_constraints": {
+                "ui_visibility": false
+            }
+        },
+        "table_name": {
+            "title": "Signavio Table Name",
+            "description": "Give a name how the table of the imported data should be called",
+            "type": "string"
+        },
+        "signavio_connection": {
+            "title": "Input Connection: Signavio ",
+            "description": "Input Connection: Signavio ",
+            "type": "object",
+            "properties": {
+                "connectionProperties": {
+                    "title": "Connection Properties",
+                    "description": "Connection Properties",
+                    "$ref": "http://sap.com/vflow/com.sap.dh.connections.openapi.schema.json",
+                    "sap_vflow_constraints": {
+                        "ui_visibility": [
+                            {
+                                "name": "configurationType",
+                                "value": "Manual",
+                                "text": "configurationType=Manual"
+                            }
+                        ]
+                    }
+                },
+                "configurationType": {
+                    "title": "Configuration Type",
+                    "description": "Configuration Type",
+                    "type": "string",
+                    "enum": [
+                        "Configuration Manager",
+                        "Manual"
+                    ]
+                },
+                "connectionID": {
+                    "title": "Connection ID",
+                    "description": "Connection ID",
+                    "type": "string",
+                    "format": "com.sap.dh.connection.id",
+                    "sap_vflow_valuehelp": {
+                        "url": "/app/datahub-app-connection/connections?connectionTypes=OPENAPI",
+                        "valuepath": "id"
+                    }
+                }
+            }
+        },
+        "primary_key": {
+            "title": "Primary Key",
+            "description": "give column name of the primary key. optional, if not set the first column in the csv will be used.",
+            "type": "string"
+        },
+        "custom_schema": {
+            "title": "Use Custom Schema",
+            "description": "The user has the option to select between a fully custom setting creation for file formatting, and a semi-automated file formatting. \"True\" will require the user to provide a full data schema and primary key",
+            "type": "boolean"
+        },
+        "data_schema": {
+            "title": "Data Schema",
+            "description": "provide schema how to convert data into signavio preferred format",
+            "type": "string",
+            "sap_vflow_uicontrol": {
+                "control": "textarea"
+            },
+            "sap_vflow_constraints": {
+                "ui_visibility": [
+                    {
+                        "name": "custom_schema",
+                        "value": true,
+                        "text": "custom_schema=true"
+                    }
+                ]
+            }
+        },
+        "from_qualtrics": {
+            "title": "Qualtrics as Datasource",
+            "description": "If Qualtrics is the datasource for the data to be ingested, data formatting is easier as certain assumptions about date-time formats and datatypes are made.",
+            "type": "boolean",
+            "sap_vflow_constraints": {
+                "ui_visibility": [
+                    {
+                        "name": "custom_schema",
+                        "value": false,
+                        "text": "custom_schema=false"
+                    }
+                ]
+            }
+        },
+        "datetime_columns": {
+            "title": "Datatime-type Columns in CSV",
+            "description": "Columns of the input csv which should be transformed as datatime-type data columns",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "sap_vflow_constraints": {
+                "ui_visibility": [
+                    {
+                        "name": "from_qualtrics",
+                        "value": false,
+                        "text": "from_qualtrics=false"
+                    }
+                ]
+            }
+        },
+        "datetime_format": {
+            "title": "Format of Datetime type Columns",
+            "description": "Specify here the format in which the data in the datetime-type columns can be expected, e.g \"%Y-%m-%d %H:%M:%S\" (Python DateTime Format, for more information visit https://pythonexamples.org/python-datetime-format/)",
+            "type": "string",
+            "sap_vflow_constraints": {
+                "ui_visibility": [
+                    {
+                        "name": "from_qualtrics",
+                        "value": false,
+                        "text": "from_qualtrics=false"
+                    }
+                ]
+            }
+        }
+    },
+    "required": [
+        "table_name",
+        "signavio_connection",
+        "custom_schema"
+    ]
+}

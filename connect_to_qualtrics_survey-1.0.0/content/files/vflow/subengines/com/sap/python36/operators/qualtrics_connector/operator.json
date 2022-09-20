@@ -1,0 +1,29 @@
+{
+    "description": "Py3 Qualtrics Connector",
+    "component": "com.sap.system.python3Operator",
+    "versionStatus": "active",
+    "outports": [
+        {
+            "name": "print",
+            "type": "string"
+        },
+        {
+            "name": "csvOutput",
+            "type": "string"
+        },
+        {
+            "name": "jsonOutput",
+            "type": "string"
+        }
+    ],
+    "icon": "puzzle-piece",
+    "iconsrc": "image2vector.svg",
+    "config": {
+        "$type": "http://sap.com/vflow/qualtrics_connector.configSchema.json",
+        "script": "import requests\nimport zipfile\nimport json\nimport csv\nimport pandas as pd\nfrom io import StringIO\nimport io\nimport ast\nfrom itertools import chain\nfrom datetime import datetime, timezone\n\n\nclass DataCollector:\n    def __init__(self):\n        self.rest_conn = api.config.qualtrics_connection[\"connectionProperties\"]\n        self.data_center = self.rest_conn[\"user\"]\n        self.token = self.rest_conn[\"password\"]\n        self.survey_id = api.config.surveyID\n        self.base_path = \".\" + self.rest_conn[\"host\"] + \"/API/v3/\"\n        self.base_url = (\n                \"https://\" + self.data_center + self.base_path + \"responseexports/\"\n        )\n        self.headers = {\"content-type\": \"application/json\", \"x-api-token\": self.token}\n\n        if api.config.useDate:\n            self.start_date = datetime.strptime(str(api.config.startDate), \"%Y-%m-%dT%H:%M\")\n            api.send(\"print\", str(self.start_date))\n        else:\n            self.start_date = datetime(1980, 1, 1, 0, 0, 0, 0)\n            api.send(\"print\", str(self.start_date))\n\n        self.raw_data = None\n        self.parsed_data = None\n        pass\n\n    def fetch_data_from_qualtrics(self):\n        request_check_progress = 0\n        progress_status = \"in progress\"\n        body = {\"surveyId\": self.survey_id, \"format\": \"csv\"}\n\n        body['endDate'] = datetime.now(timezone.utc).replace(microsecond=0, tzinfo=timezone.utc).isoformat()\n        body['startDate'] = self.start_date.replace(microsecond=0, tzinfo=timezone.utc).isoformat()\n\n        # creating data export\n        download_request_url = self.base_url\n        download_request_payload = json.dumps(body)\n        download_request_response = requests.request(\n            \"POST\",\n            download_request_url,\n            data=download_request_payload,\n            headers=self.headers,\n        )\n        progress_id = download_request_response.json()[\"result\"][\"id\"]\n        is_file = None\n        while (\n                request_check_progress \u003c 100\n                and progress_status is not \"complete\"\n                and is_file is None\n        ):\n            request_check_url = self.base_url + progress_id\n            request_check_response = requests.request(\n                \"GET\", request_check_url, headers=self.headers,\n            )\n            is_file = request_check_response.json()[\"result\"][\"file\"]\n            if is_file is not None:\n                request_check_progress = request_check_response.json()[\"result\"][\n                    \"percentComplete\"\n                ]\n\n        # downloading file\n        request_download_url = self.base_url + progress_id + \"/file\"\n        request_download = requests.request(\n            \"GET\", request_download_url, headers=self.headers, stream=True,\n        )\n        responses_zip = zipfile.ZipFile(io.BytesIO(request_download.content))\n        responses_files = responses_zip.namelist()\n        # response_file = responses_zip.open(responses_files[0])\n\n        # data preparation\n        df = responses_zip.read(responses_files[0]).decode(\"utf-8\")\n        dfp = pd.read_csv(StringIO(df), sep=\",\")\n\n        values = list(dfp.iloc[0])\n        keys = list(dfp.columns)\n        json_dict = {key: value for (key, value) in zip(keys, values)}\n        json_string = json.dumps(json_dict)\n\n        # dir_location = str(self.survey_id + \"/\" + self.survey_id + \"_\" + datetime.today().strftime(\"%Y-%m-%d_%H-%M-%S\") + \".json\")\n        # msg_header = {\"file\": {\"path\": dir_location}}\n        # msg = api.Message(json_string, msg_header)\n        api.send(\"jsonOutput\", json_string)\n\n        dfp = dfp.drop(index=[0, 1])\n        dfp_csv = dfp.to_csv(index=False)\n\n        self.raw_data = dfp_csv\n\n        # dir_location = str(self.survey_id + \"/\" + self.survey_id + \"_\" + datetime.today().strftime(\"%Y-%m-%d_%H-%M-%S\") + \".csv\")\n        # msg_header = {\"file\": {\"path\": dir_location}}\n        # msg = api.Message(dfp_csv, msg_header)\n        api.send(\"csvOutput\", dfp_csv)\n        pass\n\n\nif __name__ == \"__main__\":\n    data_collector = DataCollector()\n    data_collector.fetch_data_from_qualtrics()\n    pass\n",
+        "useDate": false
+    },
+    "tags": {
+        "aiohttp": ""
+    }
+}

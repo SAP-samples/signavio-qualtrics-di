@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
-    "$id": "http://sap.com/vflow/Connect to Qualtrics Survey.configSchema.json",
+    "$id": "http://sap.com/vflow/qualtrics_connector.configSchema.json",
     "type": "object",
     "properties": {
         "qualtrics_connection": {
@@ -50,13 +50,31 @@
             "readOnly": true,
             "type": "string",
             "sap_vflow_constraints": {
-                "ui_visibility": false,
-                "ui_disabled": true
+                "ui_visibility": false
             }
         },
-        "StartDate": {
+        "useDate": {
+            "title": "use fixed Start Date for download",
+            "type": "boolean"
+        },
+        "startDate": {
+            "title": "Start Date",
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "sap_vflow_constraints": {
+                "ui_visibility": [
+                    {
+                        "name": "useDate",
+                        "value": true
+                    }
+                ]
+            }
         }
-    }
+    },
+    "required": [
+        "qualtrics_connection",
+        "surveyID",
+        "userID",
+        "useDate"
+    ]
 }
