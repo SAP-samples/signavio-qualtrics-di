@@ -29,7 +29,7 @@ Here are the steps how to use them in your own environment:
 	- Authentication Type: Basic
 	- Username: it's not relevant, you can type "signavio"
 	- Password: the Ingestion API token (can be found in the Ingestion API data source created at step 0)
-4. In SAP Data Intelligence, open the Modeler and add the imported graph
+4. In SAP Data Intelligence, open the Modeler and add the imported graph ("Qualtrics to SAP Signavio")
 5. Configure the graph, save and execute
 	- In the Qualtrics operator, add (1) the connection, and (2) the Qualtrics Survey ID
 	- In the SAP Signavio operator, add (1) the connection, and (2) the name of the target table to be pushed in SAP Signavio Process Intelligence
