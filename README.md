@@ -3,7 +3,7 @@
 # SAP Signavio Process Intelligence - SAP Data Intelligence template with Qualtrics Connector
 
 ## Description
-This repository contains SAP Data Intelligence solutions to enable the connection of Qualtrics Survey data to SAP Signavio Process Intelligence through an SAP Data Intelligence pipeline.
+This repository contains SAP Data Intelligence solutions to enable the connection from Qualtrics to SAP Signavio Process Intelligence through an SAP Data Intelligence pipeline.
 
 For more information, follow this blog post on SAP Community: [Integrating SAP Signavio Process Intelligence and SAP Data Intelligence Cloud: A concrete example with the New Ingestion API](https://blogs.sap.com/2022/07/20/integrating-sap-signavio-process-intelligence-and-sap-data-intelligence-cloud-a-concrete-example-with-the-new-ingestion-api).
 
