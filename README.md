@@ -13,7 +13,7 @@ For more information, follow this blog post on SAP Community: [Integrating SAP S
 - SAP Data Intelligence tenant
 
 ## Download and Installation
-In this GitHub repository you can find 3 folders, "qualtrics_pi_di-1.0.0", "connect_to_qualtrics_survey-1.0.0" and "push_data_to_pi-1.0.0", containing respectively the DI graph, the DI Qualtrics connector and the DI SAP Signavio connector. You can download and archive them in zip files, so that they can be imported as solutions into your SAP Data Intelligence tenant.
+In this GitHub repository you can find 3 folders, "qualtrics_pi_di-1.0.0", "connect_to_qualtrics_survey-1.0.0" and "push_data_to_pi-1.0.0", containing respectively the SAP Data Intelligence graph, the SAP Data Intelligence connector to Qualtrics and the SAP Data Intelligence connector to SAP Signavio Process Intelligence. You can download and archive them in zip files, so that they can be imported as solutions into your SAP Data Intelligence tenant.
 Here are the steps:
 0. In SAP Signavio Process Intelligence, create a new Ingestion API data source
 1. In order to import solutions in SAP Data Intelligence, you can go to System Management, go to Files, click on the '+' symbol, select "Import Solution" and choose your zip file.
