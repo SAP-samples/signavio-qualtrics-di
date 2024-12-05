@@ -1,3 +1,11 @@
+## Deprecation Notice
+
+This public repository is read-only and no longer maintained.
+
+![](https://img.shields.io/badge/STATUS-NOT%20CURRENTLY%20MAINTAINED-red.svg?longCache=true&style=flat)
+
+---
+
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/signavio-qualtrics-di)](https://api.reuse.software/info/github.com/SAP-samples/signavio-qualtrics-di)
 
 # SAP Signavio Process Intelligence - SAP Data Intelligence template with Qualtrics Connector
